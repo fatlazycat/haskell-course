@@ -18,6 +18,7 @@ in pkgs.myEnvFun {
          hs.stylishHaskell
          hs.hoogleLocal
          hs.happy
+         hs.tasty
        ] ++ hs.thispackage.propagatedNativeBuildInputs)))
      ];
    } 
