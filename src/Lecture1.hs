@@ -18,3 +18,6 @@ doubleEveryOtherHelper (x:y:xs) = [x,y*2] ++ (doubleEveryOtherHelper xs)
 
 sumDigits :: [Integer] -> Integer
 sumDigits xs = sum $ concatMap toDigits xs
+
+validate :: Integer -> Bool
+validate x = (sumDigits $ doubleEveryOther $ toDigits x) `mod` 10 == 0
