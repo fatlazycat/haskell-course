@@ -17,5 +17,6 @@ unitTests = testGroup "Unit tests"
     testCase "Validate 4012888888881881" $ (validate 4012888888881881) @?= True,
     testCase "Validate 4012888888881882" $ (validate 4012888888881882) @?= False,
     testCase "Hanoi with two dics" $ (hanoi 2 "a" "b" "c") @?= [("a","c"), ("a","b"), ("c","b")],
-    testCase "Hanoi with four disks" $ (hanoi 4 "1" "3" "2") @?= [("1","2"),("1","3"),("2","3"),("1","2"),("3","1"),("3","2"),("1","2"),("1","3"),("2","3"),("2","1"),("3","1"),("2","3"),("1","2"),("1","3"),("2","3")]
+    testCase "Hanoi with four disks" $ (hanoi 4 "1" "3" "2") @?= [("1","2"),("1","3"),("2","3"),("1","2"),("3","1"),("3","2"),("1","2"),("1","3"),("2","3"),("2","1"),("3","1"),("2","3"),("1","2"),("1","3"),("2","3")],
+    testCase "Hanoi 15 disc three pegs" $ (length (hanoi 15 "a" "b" "c")) @?= 32767
   ]
