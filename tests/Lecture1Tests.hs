@@ -4,6 +4,7 @@ import           Lecture1
 import           Test.Tasty
 import           Test.Tasty.HUnit
 
+unitTests :: TestTree
 unitTests = testGroup "Unit tests"
   [ testCase "0 gives []" $ (toDigits 0) @?= [],
     testCase "-17 gives []" $ (toDigits (-17)) @?= [],
