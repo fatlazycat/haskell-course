@@ -1,6 +1,6 @@
-module Lecture1Tests where
+module Lecture1.Lecture1Tests where
 
-import           Lecture1
+import           Lecture1.Lecture1
 import           Test.Tasty
 import           Test.Tasty.HUnit
 

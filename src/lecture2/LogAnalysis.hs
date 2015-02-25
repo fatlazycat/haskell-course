@@ -1,4 +1,4 @@
 {-# OPTIONS_GHC -Wall #-}
-module LogAnalysis where
+module Lecture2.LogAnalysis where
 
-import Log
+import Lecture2.Log

@@ -1,6 +1,6 @@
 module Main where
 
-import           Lecture1Tests
+import           Lecture1.Lecture1Tests
 import           Test.Tasty
 import           Test.Tasty.Ingredients.Rerun
 import           Test.Tasty.Runners
@@ -12,4 +12,4 @@ main =
      tests
 
 tests :: TestTree
-tests = testGroup "Lecture Tests" [Lecture1Tests.unitTests]
+tests = testGroup "Lecture Tests" [Lecture1.Lecture1Tests.unitTests]

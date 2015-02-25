@@ -1,4 +1,4 @@
-module Lecture1 where
+module Lecture1.Lecture1 where
 
 toDigits :: Integer -> [Integer]
 toDigits x = reverse $ toDigitsRev x
