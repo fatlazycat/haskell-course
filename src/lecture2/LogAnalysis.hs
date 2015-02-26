@@ -8,8 +8,8 @@ parseMessage :: String -> LogMessage
 parseMessage s = parseMessageWords (words s) s
 
 parseMessageWords :: [String] -> String -> LogMessage
-parseMessageWords ("E":errorString:timeStampString:xs) entireMsg = makeErrorMessage (readMaybe errorString) (readMaybe timeStampString) (unwords xs) entireMsg
-parseMessageWords ("I":timeStampString:xs) entireMsg = makeInfoMessage (readMaybe timeStampString) (unwords xs) entireMsg
+parseMessageWords ("E":e:t:xs) entireMsg = makeErrorMessage (readMaybe e) (readMaybe t) (unwords xs) entireMsg
+parseMessageWords ("I":t:xs) entireMsg = makeInfoMessage (readMaybe t) (unwords xs) entireMsg
 parseMessageWords _ entireMsg = Unknown entireMsg
 
 makeErrorMessage :: Maybe Int -> Maybe Int -> String  -> String -> LogMessage
@@ -19,3 +19,6 @@ makeErrorMessage _ _ _ entireMsg = Unknown entireMsg
 makeInfoMessage :: Maybe Int -> String  -> String -> LogMessage
 makeInfoMessage (Just timeStamp) msg _ = LogMessage Info timeStamp msg
 makeInfoMessage  _ _ entireMsg = Unknown entireMsg
+
+parse :: String -> [LogMessage]
+parse s = map parseMessage $ lines s
