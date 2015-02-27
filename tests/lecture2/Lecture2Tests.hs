@@ -5,6 +5,10 @@ import           Lecture2.LogAnalysis
 import           Test.Tasty
 import           Test.Tasty.HUnit
 
+aLogMsg =  (LogMessage Info 2 "Info")
+aLessThanTSLogMsg =  (LogMessage Info 1 "Info")
+aGreaterTSLogMsg =  (LogMessage Info 3 "Info")
+
 unitTests :: TestTree
 unitTests = testGroup "Unit tests"
   [ testCase "Can parse error message" $
@@ -16,5 +20,17 @@ unitTests = testGroup "Unit tests"
     testCase "Can process file" $
     do let file = "tests/Lecture2/error.log"
        logMsgs <- testParse parse 10 file
-       assertEqual "Can parse 10 lines" 10 (length logMsgs)
+       assertEqual "Can parse 10 lines" 10 (length logMsgs),
+
+    testCase "Insert unknown message into empty tree returns empty tree" $
+    (insert (Unknown "msg") Leaf) @?= Leaf,
+
+    testCase "Insert one log message to empty tree" $
+    (insert aLogMsg Leaf) @?= Node Leaf aLogMsg Leaf,
+
+    testCase "New greater timestamp log message" $
+    (insert aGreaterTSLogMsg (Node Leaf aLogMsg Leaf)) @?= (Node Leaf aLogMsg (Node Leaf aGreaterTSLogMsg Leaf)),
+
+    testCase "New less timestamp log message" $
+    (insert aLessThanTSLogMsg (Node Leaf aLogMsg Leaf)) @?= (Node (Node Leaf aLessThanTSLogMsg Leaf) aLogMsg Leaf)
   ]

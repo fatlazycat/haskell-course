@@ -22,3 +22,10 @@ makeInfoMessage  _ _ entireMsg = Unknown entireMsg
 
 parse :: String -> [LogMessage]
 parse s = map parseMessage $ lines s
+
+insert :: LogMessage -> MessageTree -> MessageTree
+insert (Unknown _) tree = tree
+insert lm Leaf = Node Leaf lm Leaf
+insert lm@(LogMessage _ ts _) (Node less lmNode@(LogMessage _ tsNode _) greater)
+  | ts < tsNode = Node (insert lm less) lmNode greater
+  | ts > tsNode = Node less lmNode (insert lm greater)
