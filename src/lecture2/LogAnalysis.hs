@@ -1,8 +1,8 @@
 {-# OPTIONS_GHC -Wall #-}
 module Lecture2.LogAnalysis where
 
-import Lecture2.Log
-import Text.Read
+import           Lecture2.Log
+import           Text.Read
 
 parseMessage :: String -> LogMessage
 parseMessage s = parseMessageWords (words s) s
@@ -33,5 +33,18 @@ insert lm@(LogMessage _ ts _) (Node less lmNode@(LogMessage _ tsNode _) greater)
   | otherwise = Leaf
 
 inOrder :: MessageTree -> [LogMessage]
-inOrder Leaf = [] 
+inOrder Leaf = []
 inOrder (Node l lm r) = (inOrder l) ++ [lm] ++ (inOrder r)
+
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong xs = map extractString $ inOrder $ foldr insert Leaf $ filter candidateMsg xs
+
+extractString :: LogMessage -> String
+extractString (LogMessage _ _ s) = s
+extractString _ = ""
+
+candidateMsg :: LogMessage -> Bool
+candidateMsg (LogMessage (Error num) _ _)
+  | num >= 50 = True
+  | otherwise = False
+candidateMsg _ = False
