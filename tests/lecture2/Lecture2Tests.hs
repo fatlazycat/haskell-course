@@ -8,6 +8,7 @@ import           Test.Tasty.HUnit
 aLogMsg =  (LogMessage Info 2 "Info")
 aLessThanTSLogMsg =  (LogMessage Info 1 "Info")
 aGreaterTSLogMsg =  (LogMessage Info 3 "Info")
+inOrderTree = Node (Node Leaf aLessThanTSLogMsg Leaf) aLogMsg (Node Leaf aGreaterTSLogMsg Leaf)
 
 unitTests :: TestTree
 unitTests = testGroup "Unit tests"
@@ -32,5 +33,8 @@ unitTests = testGroup "Unit tests"
     (insert aGreaterTSLogMsg (Node Leaf aLogMsg Leaf)) @?= (Node Leaf aLogMsg (Node Leaf aGreaterTSLogMsg Leaf)),
 
     testCase "New less timestamp log message" $
-    (insert aLessThanTSLogMsg (Node Leaf aLogMsg Leaf)) @?= (Node (Node Leaf aLessThanTSLogMsg Leaf) aLogMsg Leaf)
+    (insert aLessThanTSLogMsg (Node Leaf aLogMsg Leaf)) @?= (Node (Node Leaf aLessThanTSLogMsg Leaf) aLogMsg Leaf),
+
+    testCase "Can get an in order list of a tree" $
+    (inOrder inOrderTree) @?= [aLessThanTSLogMsg, aLogMsg, aGreaterTSLogMsg]
   ]
