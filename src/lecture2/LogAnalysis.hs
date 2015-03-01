@@ -39,6 +39,9 @@ inOrder (Node l lm r) = (inOrder l) ++ [lm] ++ (inOrder r)
 whatWentWrong :: [LogMessage] -> [String]
 whatWentWrong xs = map extractString $ inOrder $ foldr insert Leaf $ filter candidateMsg xs
 
+allThatWentWrong :: [LogMessage] -> [String]
+allThatWentWrong xs = map extractString $ inOrder $ foldr insert Leaf xs
+
 extractString :: LogMessage -> String
 extractString (LogMessage _ _ s) = s
 extractString _ = ""

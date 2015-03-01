@@ -17,7 +17,7 @@ errorMsgs =
  ]
 
 unitTests :: TestTree
-unitTests = testGroup "Unit tests"
+unitTests = testGroup "Lecture 2 Unit tests"
   [ testCase "Can parse error message" $
     parseMessage "E 2 562 help help" @?= LogMessage (Error 2) 562 "help help",
     testCase "Can parse info message" $
