@@ -30,6 +30,7 @@ library
   exposed-modules: Lecture1.Lecture1
                  , Lecture2.LogAnalysis
                  , Lecture2.Log
+                 , Lecture3.Golf
 
 
 test-suite test
