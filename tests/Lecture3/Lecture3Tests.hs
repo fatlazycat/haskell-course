@@ -11,6 +11,10 @@ unitTests = testGroup "Lecture 3 Unit tests"
     testCase "process hello!" $ skips "hello!" @?= ["hello!", "el!", "l!", "l", "o", "!"],
     testCase "process [1]" $ skips [1::Int] @?= [[1]],
     testCase "process [True, False]" $ skips [True, False] @?= [[True, False], [False]],
-    testCase "process []" $ skips ([]::[Int]) @?= []
+    testCase "process []" $ skips ([]::[Int]) @?= [],
+
+    testCase "local maxima [2,9,5,6,1]" $ localMaxima [2,9,5,6,1] @?= [9,6],
+    testCase "local maxima [2,3,4,1,5]" $ localMaxima [2,3,4,1,5] @?= [4],
+    testCase "local maxima [1,2,3,4,5]" $ localMaxima [1,2,3,4,5] @?= []
   ]
 
