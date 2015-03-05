@@ -33,7 +33,7 @@ isMaxima (x,y,z)
   | otherwise = False
 
 histogram :: [Int] -> String
-histogram xs = concat $ reverse $ map (++ "\n") $ transpose dataRows
+histogram xs = concat . reverse . map (++ "\n") $ transpose dataRows
   where partitionSet = group xs
         maxNumberOfEntries = maxSize partitionSet
         entries = Map.fromList $ createMap maxNumberOfEntries partitionSet
