@@ -15,6 +15,12 @@ unitTests = testGroup "Lecture 3 Unit tests"
 
     testCase "local maxima [2,9,5,6,1]" $ localMaxima [2,9,5,6,1] @?= [9,6],
     testCase "local maxima [2,3,4,1,5]" $ localMaxima [2,3,4,1,5] @?= [4],
-    testCase "local maxima [1,2,3,4,5]" $ localMaxima [1,2,3,4,5] @?= []
-  ]
+    testCase "local maxima [1,2,3,4,5]" $ localMaxima [1,2,3,4,5] @?= [],
 
+    testCase "histogram [1,1,1,5]" $ histogram [1,1,1,5] @?=
+      " *        \n" ++
+      " *        \n" ++
+      " *   *    \n" ++
+      "==========\n" ++
+      "0123456789\n"
+  ]

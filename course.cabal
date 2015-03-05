@@ -25,6 +25,7 @@ executable helloworld
 
 library
   build-depends: base >= 4 && < 5
+               , containers >= 0.5.5.1
   hs-source-dirs: src
   default-language: Haskell2010
   exposed-modules: Lecture1.Lecture1
@@ -40,6 +41,7 @@ test-suite test
   main-is: Test.hs
   build-depends:
                   base >= 4 && < 5
+                , containers
                 , course
                 , tasty >= 0.10.1
                 , tasty-hunit >= 0.9.1
