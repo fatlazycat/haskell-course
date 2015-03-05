@@ -3,7 +3,6 @@ module Lecture3.Golf(skips, localMaxima, histogram) where
 import           Data.Char
 import           Data.List
 import qualified Data.Map    as Map
-import           Data.String
 
 skips :: [a] -> [[a]]
 skips xs = [mapForDivisor n xs | n <- [1..(length xs)]]
@@ -20,12 +19,15 @@ zippedIndex = zip [1..]
 localMaxima :: [Integer] -> [Integer]
 localMaxima xs = map extractAnswer $ filter isMaxima $ makeCandidate xs
 
+extractAnswer :: (t, t1, t2) -> t1
 extractAnswer (_,y,_) = y
 
+makeCandidate :: [c] -> [(c, c, c)]
 makeCandidate xs
   | length xs >= 3 = zip3 xs (tail xs) (tail $ tail xs)
   | otherwise = []
 
+isMaxima :: Ord a => (a, a, a) -> Bool
 isMaxima (x,y,z)
   | y > x && y > z = True
   | otherwise = False
