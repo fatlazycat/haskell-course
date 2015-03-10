@@ -21,5 +21,7 @@ unitTests = testGroup "Lecture 4 Unit tests"
     testCase "xor 1" $ xor [False, True, False] @?= True,
     testCase "xor 2" $ xor [False, True, False, False, True] @?= False,
 
-    testCase "maps equal" $ map (+2) [1,2,3,4] @?= map' (+2) [1,2,3,4]
+    testCase "maps equal" $ map (+2) [1,2,3,4] @?= map' (+2) [1,2,3,4],
+
+    testCase "test foldl" $ foldl (-) 54 [1,2,3,4] @?= myFoldl (-) 54 [1,2,3,4]
   ]

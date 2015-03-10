@@ -1,4 +1,4 @@
-module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf), xor, map') where
+module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf), xor, map', myFoldl) where
 
 fun1 :: [Integer] -> Integer
 fun1 [] = 1
@@ -48,4 +48,7 @@ xorBool False False = False
 
 map' :: (a -> b) -> [a] -> [b]
 map' fn = foldr (\x acc -> fn(x) : acc) []
+
+myFoldl :: (a -> b -> a) -> a -> [b] -> a
+myFoldl fn base = foldr (\x acc -> fn acc x) base
 
