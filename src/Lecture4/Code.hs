@@ -1,4 +1,4 @@
-module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf)) where
+module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf), xor) where
 
 fun1 :: [Integer] -> Integer
 fun1 [] = 1
@@ -36,3 +36,12 @@ insertTree x (Node n treeLeft i treeRight)
 heightTree :: Tree a -> Integer
 heightTree Leaf = 0
 heightTree (Node n _ _ _) = n
+
+xor :: [Bool] -> Bool
+xor = foldr (\x acc -> xorBool x acc ) False
+
+xorBool :: Bool -> Bool -> Bool
+xorBool True True = False
+xorBool True False = True
+xorBool False True = True
+xorBool False False = False
