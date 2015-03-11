@@ -23,5 +23,7 @@ unitTests = testGroup "Lecture 4 Unit tests"
 
     testCase "maps equal" $ map (+2) [1,2,3,4] @?= map' (+2) [1,2,3,4],
 
-    testCase "test foldl" $ foldl (-) 54 [1,2,3,4] @?= myFoldl (-) 54 [1,2,3,4]
+    testCase "test foldl" $ foldl (-) 54 [1,2,3,4] @?= myFoldl (-) 54 [1,2,3,4],
+
+    testCase "first primes 100 or less" $ sieveSundaram 49 @?= [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
   ]

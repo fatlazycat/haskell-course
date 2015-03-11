@@ -1,4 +1,6 @@
-module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf), xor, map', myFoldl) where
+module Lecture4.Code(fun1, fun2, fun1', fun2', foldTree, Tree(Node, Leaf), xor, map', myFoldl, sieveSundaram) where
+
+import qualified Data.Set as Set
 
 fun1 :: [Integer] -> Integer
 fun1 [] = 1
@@ -47,8 +49,14 @@ xorBool False True = True
 xorBool False False = False
 
 map' :: (a -> b) -> [a] -> [b]
-map' fn = foldr (\x acc -> fn(x) : acc) []
+map' fn = foldr (\x acc -> fn x : acc) []
 
 myFoldl :: (a -> b -> a) -> a -> [b] -> a
-myFoldl fn base = foldr (\x acc -> fn acc x) base
+myFoldl fn = foldr $ flip fn
 
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n =
+  2 : map (\x -> x*2+1) (Set.toList $ Set.difference allItemsSet delSet)
+  where del = [i+j+2*i*j | i <- [1..n], j <- [1..n], i+j+2*i*j <=n ]
+        delSet = Set.fromList del
+        allItemsSet = Set.fromList [1..n]
