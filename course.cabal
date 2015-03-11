@@ -33,6 +33,7 @@ library
                  , Lecture2.Log
                  , Lecture3.Golf
                  , Lecture4.Code
+                 , Lecture5.Calc
 
 
 test-suite test
