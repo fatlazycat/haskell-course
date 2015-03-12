@@ -35,7 +35,7 @@ library
                  , Lecture4.Code
                  , Lecture5.Calc
                  , Lecture5.ExprT
-                 , Lecture5.Parser
+  other-modules: Lecture5.Parser
 
 
 test-suite test
