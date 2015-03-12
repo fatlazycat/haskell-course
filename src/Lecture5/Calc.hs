@@ -25,3 +25,8 @@ instance Expr ExprT where
 
 reify :: ExprT -> ExprT
 reify = id
+
+instance Expr Integer where
+  lit x = eval $ Lit x
+  mul x y = eval $ Mul (Lit x) (Lit y)
+  add x y = eval $ Add (Lit x) (Lit y)
