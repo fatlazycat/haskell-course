@@ -8,5 +8,8 @@ import           Test.Tasty.HUnit
 unitTests :: TestTree
 unitTests = testGroup "Lecture 5 Unit tests"
   [
-    testCase "calc to 20" $ eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) @?= 20
+    testCase "calc to 20" $ eval (Mul (Add (Lit 2) (Lit 3)) (Lit 4)) @?= 20,
+
+    testCase "test evalStr" $ evalStr "(2+3)*4" @?= Just 20,
+    testCase "test failure of evalStr" $ evalStr "(2+3)*" @?= Nothing
   ]
