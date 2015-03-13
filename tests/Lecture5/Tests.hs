@@ -30,5 +30,7 @@ unitTests = testGroup "Lecture 5 Unit tests"
 
     testCase "type class Mod7" $ (testExp :: Maybe Mod7) @?= Just (Mod7 0),
 
-    testCase "type class Program" $ (testExp :: Maybe S.Program) @?= Just [S.PushI 3,S.PushI (-4),S.Mul,S.PushI 5,S.Add]
+    testCase "type class Program" $ (testExp :: Maybe S.Program) @?= Just [S.PushI 3,S.PushI (-4),S.Mul,S.PushI 5,S.Add],
+    
+    testCase "compile" $ compile "(3 * -4) + 5" @?= Just [S.PushI 3,S.PushI (-4),S.Mul,S.PushI 5,S.Add]
   ]

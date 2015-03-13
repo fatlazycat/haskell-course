@@ -56,3 +56,6 @@ instance Expr S.Program where
   lit p = [S.PushI p]
   mul x y = x ++ y ++ [S.Mul]
   add x y = x ++ y ++ [S.Add]
+
+compile :: String -> Maybe S.Program
+compile = parseExp lit add mul 
