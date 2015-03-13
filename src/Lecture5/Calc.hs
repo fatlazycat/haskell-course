@@ -30,3 +30,16 @@ instance Expr Integer where
   lit x = eval $ Lit x
   mul x y = eval $ Mul (Lit x) (Lit y)
   add x y = eval $ Add (Lit x) (Lit y)
+
+instance Expr Bool where
+  lit x = x > 0
+  mul x y = x && y
+  add x y = x || y
+
+newtype MinMax  = MinMax Integer deriving (Eq, Show)
+newtype Mod7    = Mod7 Integer deriving (Eq, Show)
+
+instance Expr MinMax where
+  lit = MinMax 
+  mul (MinMax x) (MinMax y) = MinMax(min x y)
+  add (MinMax x) (MinMax y) = MinMax(max x y)
