@@ -25,5 +25,7 @@ unitTests = testGroup "Lecture 5 Unit tests"
 
     testCase "type class Bool" $ (testExp :: Maybe Bool) @?= Just True,
 
-    testCase "type class MinMax" $ (testExp :: Maybe MinMax) @?= Just (MinMax 5)
+    testCase "type class MinMax" $ (testExp :: Maybe MinMax) @?= Just (MinMax 5),
+
+    testCase "type class Mod7" $ (testExp :: Maybe Mod7) @?= Just (Mod7 0)
   ]

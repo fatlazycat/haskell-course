@@ -40,6 +40,12 @@ newtype MinMax  = MinMax Integer deriving (Eq, Show)
 newtype Mod7    = Mod7 Integer deriving (Eq, Show)
 
 instance Expr MinMax where
-  lit = MinMax 
+  lit = MinMax
   mul (MinMax x) (MinMax y) = MinMax(min x y)
   add (MinMax x) (MinMax y) = MinMax(max x y)
+  
+instance Expr Mod7 where
+  lit x = Mod7 $ mod (eval $ Lit x) 7
+  mul (Mod7 x) (Mod7 y) = Mod7 $ mod (eval $ Mul (Lit x) (Lit y)) 7
+  add (Mod7 x) (Mod7 y) = Mod7 $ mod (eval $ Add (Lit x) (Lit y)) 7
+
