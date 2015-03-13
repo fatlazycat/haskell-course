@@ -1,7 +1,10 @@
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 module Lecture5.Calc where
 
 import           Lecture5.ExprT
 import           Lecture5.Parser
+import qualified Lecture5.StackVM as S
 
 eval :: ExprT -> Integer
 eval (Mul x y) = (eval x) * (eval y)
@@ -43,9 +46,13 @@ instance Expr MinMax where
   lit = MinMax
   mul (MinMax x) (MinMax y) = MinMax(min x y)
   add (MinMax x) (MinMax y) = MinMax(max x y)
-  
+
 instance Expr Mod7 where
   lit x = Mod7 $ mod (eval $ Lit x) 7
   mul (Mod7 x) (Mod7 y) = Mod7 $ mod (eval $ Mul (Lit x) (Lit y)) 7
   add (Mod7 x) (Mod7 y) = Mod7 $ mod (eval $ Add (Lit x) (Lit y)) 7
 
+instance Expr S.Program where
+  lit p = [S.PushI p]
+  mul x y = x ++ y ++ [S.Mul]
+  add x y = x ++ y ++ [S.Add]

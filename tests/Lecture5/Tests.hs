@@ -3,6 +3,7 @@ module Lecture5.Tests where
 import           Lecture5.Calc
 import           Lecture5.ExprT
 import           Lecture5.Parser
+import qualified Lecture5.StackVM as S
 import           Test.Tasty
 import           Test.Tasty.HUnit
 
@@ -27,5 +28,7 @@ unitTests = testGroup "Lecture 5 Unit tests"
 
     testCase "type class MinMax" $ (testExp :: Maybe MinMax) @?= Just (MinMax 5),
 
-    testCase "type class Mod7" $ (testExp :: Maybe Mod7) @?= Just (Mod7 0)
+    testCase "type class Mod7" $ (testExp :: Maybe Mod7) @?= Just (Mod7 0),
+
+    testCase "type class Program" $ (testExp :: Maybe S.Program) @?= Just [S.PushI 3,S.PushI (-4),S.Mul,S.PushI 5,S.Add]
   ]

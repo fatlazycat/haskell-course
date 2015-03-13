@@ -11,7 +11,7 @@ data StackExp = PushI Integer
               | Mul
               | And
               | Or
-                deriving Show
+                deriving (Show, Eq)
 
 type Stack   = [StackVal]
 type Program = [StackExp]
@@ -55,4 +55,5 @@ execute (BVal s1 : BVal s2 : ss) (Or : xs)  = execute (s':ss) xs
 execute (_:_:_) (Or:_)                      = errType "Or"
 execute _ (Or:_)                            = errUnderflow "Or"
 
-test = stackVM [PushI 3, PushI 5, Add]
+--test :: Either String StackVal
+--test = stackVM [PushI 3, PushI 5, Add]
