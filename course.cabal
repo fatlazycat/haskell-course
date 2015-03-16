@@ -37,6 +37,7 @@ library
                  , Lecture5.ExprT
                  , Lecture5.Parser
                  , Lecture5.StackVM
+                 , Lecture6.Fibonacci
 
 test-suite test
   default-language: Haskell2010

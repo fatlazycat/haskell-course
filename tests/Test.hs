@@ -5,6 +5,7 @@ import           Lecture2.Lecture2Tests
 import           Lecture3.Lecture3Tests
 import           Lecture4.Tests
 import           Lecture5.Tests
+import           Lecture6.Tests
 import           Test.Tasty
 import           Test.Tasty.Ingredients.Rerun
 import           Test.Tasty.Runners
@@ -22,4 +23,5 @@ tests = testGroup "Lecture Tests"
        , Lecture3.Lecture3Tests.unitTests
        , Lecture4.Tests.unitTests
        , Lecture5.Tests.unitTests
+       , Lecture6.Tests.unitTests
         ]
