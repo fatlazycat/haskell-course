@@ -16,3 +16,8 @@ fib2 = (map fib2' [0..] !!) where
 
 fibs2 :: [Integer]
 fibs2 = [fib2 n | n <- [0..]]
+
+data Stream a = Node a (Stream a)
+
+streamToList :: Stream a -> [a]
+streamToList (Node x s) = x : streamToList s
