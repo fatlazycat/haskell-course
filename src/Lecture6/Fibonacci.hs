@@ -34,3 +34,12 @@ streamMap fn (Node x s) = Node (fn x) (streamMap fn s)
 streamFromSeed :: (a -> a) -> a -> Stream a
 streamFromSeed fn x = Node x' (streamFromSeed fn x')
   where x' = fn x
+
+nats :: Stream Integer
+nats = streamFromSeed (+1) (-1)
+
+ruler :: Stream Integer
+ruler =  undefined
+
+interleaveStreams :: Stream a -> Stream a -> Stream a
+interleaveStreams (Node x stream) otherStream = Node x (interleaveStreams otherStream stream)
