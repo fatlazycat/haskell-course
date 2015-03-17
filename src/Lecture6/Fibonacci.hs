@@ -27,3 +27,10 @@ instance Show a => Show (Stream a) where
 
 streamRepeat :: a -> Stream a
 streamRepeat x = Node x (streamRepeat x)
+
+streamMap :: (a -> b) -> Stream a -> Stream b
+streamMap fn (Node x s) = Node (fn x) (streamMap fn s)
+
+streamFromSeed :: (a -> a) -> a -> Stream a
+streamFromSeed fn x = Node x' (streamFromSeed fn x')
+  where x' = fn x

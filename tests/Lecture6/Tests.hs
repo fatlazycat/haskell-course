@@ -23,5 +23,7 @@ unitTests = testGroup "Lecture 6 Unit tests"
     testCase "first 5 fibs" $ take 5 fibs1 @?= [0,1,1,2,3],
 
     testCase "streamToList" $ take 5 (streamToList testDataFromOne) @?= [1,2,3,4,5],
-    testCase "streamRepeat" $ takeFromStream 5 (streamRepeat 1) @?= ([1,1,1,1,1] :: [Int])
+    testCase "streamRepeat" $ takeFromStream 5 (streamRepeat 1) @?= ([1,1,1,1,1] :: [Int]),
+    testCase "streamMap" $ takeFromStream 5 (streamMap (+1) (streamRepeat 1)) @?= ([2,2,2,2,2] :: [Int]),
+    testCase "streamFromSeed" $ takeFromStream 5 (streamFromSeed (+1) 0) @?= ([1,2,3,4,5] :: [Int])
   ]
