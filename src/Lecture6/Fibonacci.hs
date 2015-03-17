@@ -21,3 +21,9 @@ data Stream a = Node a (Stream a)
 
 streamToList :: Stream a -> [a]
 streamToList (Node x s) = x : streamToList s
+
+instance Show a => Show (Stream a) where
+  show s = show $ take 20 (streamToList s)
+
+streamRepeat :: a -> Stream a
+streamRepeat x = Node x (streamRepeat x)
