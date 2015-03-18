@@ -31,5 +31,7 @@ unitTests = testGroup "Lecture 6 Unit tests"
     testCase "interleave Stream" $
       takeFromStream 6 (interleaveStreams
               (streamMap (+1) (streamRepeat 0))
-              (streamMap (+1) (streamRepeat 1))) @?= ([1,2,1,2,1,2] :: [Int])
+              (streamMap (+1) (streamRepeat 1))) @?= ([1,2,1,2,1,2] :: [Int]),
+
+    testCase "ruler" $ takeFromStream 20 ruler @?= [0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2]
   ]

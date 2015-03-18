@@ -39,7 +39,8 @@ nats :: Stream Integer
 nats = streamFromSeed (+1) (-1)
 
 ruler :: Stream Integer
-ruler =  undefined
+ruler = foldr1 interleaveStreams (map streamRepeat [0..])
+--ruler = undefined
 
 interleaveStreams :: Stream a -> Stream a -> Stream a
 interleaveStreams (Node x stream) otherStream = Node x (interleaveStreams otherStream stream)
