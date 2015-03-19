@@ -34,4 +34,6 @@ unitTests = testGroup "Lecture 6 Unit tests"
               (streamMap (+1) (streamRepeat 1))) @?= ([1,2,1,2,1,2] :: [Int]),
 
     testCase "ruler" $ takeFromStream 20 ruler @?= [0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,4,0,1,0,2]
+
+--    testCase "fibs3" $ takeFromStream 5 fibs3 @?= [0,1,1,2,3]
   ]
