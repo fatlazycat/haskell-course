@@ -38,6 +38,8 @@ library
                  , Lecture5.Parser
                  , Lecture5.StackVM
                  , Lecture6.Fibonacci
+                 , Lecture7.JoinList
+                 , Lecture7.Scrabble
 
 test-suite test
   default-language: Haskell2010
