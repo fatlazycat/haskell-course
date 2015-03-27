@@ -15,7 +15,6 @@ data JoinList m a = Empty
 
 tag :: Monoid m => JoinList m a -> m
 tag Empty = mempty
-tag (Single m _) = m
 tag (Append m _ _) = m
 
 bi = Single (Size 1)
@@ -42,3 +41,6 @@ jlToList Empty            = []
 jlToList (Single _ a)     = [a]
 jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
 
+--dropJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+--dropJ _ Empty = Empty
+--drop

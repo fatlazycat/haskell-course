@@ -1,8 +1,8 @@
 {-# LANGUAGE FlexibleInstances #-}
 module Lecture7.Tests where
 
-import           Control.Monad
 import           Control.Applicative
+import           Control.Monad
 import           Data.Monoid
 import           Lecture7.JoinList
 import           Lecture7.Sized
@@ -47,6 +47,7 @@ instance Arbitrary (JoinList Size Integer) where
             where left = joinList' (n `div` 2)
                   right = joinList' (n `div` 2)
 
+qcProps :: TestTree
 qcProps = testGroup "(checked by QuickCheck)"
   [ testProperty "indexJ == index" $
     \i jl -> indexJ (i :: Int) (jl :: JoinList Size Integer) == (jlToList jl !!? i)
