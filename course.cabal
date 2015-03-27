@@ -40,6 +40,7 @@ library
                  , Lecture6.Fibonacci
                  , Lecture7.JoinList
                  , Lecture7.Scrabble
+                 , Lecture7.Sized
 
 test-suite test
   default-language: Haskell2010
@@ -53,3 +54,5 @@ test-suite test
                 , tasty >= 0.10.1
                 , tasty-hunit >= 0.9.1
                 , tasty-rerun >= 1.1.3
+                , tasty-quickcheck
+                , QuickCheck

@@ -26,4 +26,8 @@ tests = testGroup "Lecture Tests"
        , Lecture5.Tests.unitTests
        , Lecture6.Tests.unitTests
        , Lecture7.Tests.unitTests
+       , properties
         ]
+
+properties :: TestTree
+properties = testGroup "Properties" [Lecture7.Tests.qcProps]
