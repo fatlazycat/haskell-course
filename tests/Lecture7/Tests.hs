@@ -50,5 +50,8 @@ instance Arbitrary (JoinList Size Integer) where
 qcProps :: TestTree
 qcProps = testGroup "(checked by QuickCheck)"
   [ testProperty "indexJ == index" $
-    \i jl -> indexJ (i :: Int) (jl :: JoinList Size Integer) == (jlToList jl !!? i)
+    \i jl -> indexJ (i :: Int) (jl :: JoinList Size Integer) == (jlToList jl !!? i),
+
+    testProperty "dropJ" $
+    \n jl -> jlToList (dropJ (n::Int) (jl::JoinList Size Integer)) == (drop n (jlToList jl))
   ]
