@@ -6,6 +6,7 @@ import           Control.Monad
 import           Data.Monoid
 import           Lecture7.JoinList
 import           Lecture7.Sized
+import           Lecture7.Scrabble
 import           Test.QuickCheck
 import           Test.Tasty
 import           Test.Tasty.HUnit
@@ -29,11 +30,13 @@ unitTests = testGroup "Lecture 7 Unit tests"
     testCase "index 3 == 4" $ indexJ 3 testData @?= Just 4,
     testCase "index 4 == 5" $ indexJ 4 testData @?= Just 5,
     testCase "index 7 == 8" $ indexJ 7 testData @?= Just 8,
-    testCase "with odd data" $ indexJ 4 oddTestData @?= Just 5
-  ]
+    testCase "with odd data" $ indexJ 4 oddTestData @?= Just 5,
 
---calc :: (Sized b, Monoid b) => Gen (JoinList b Integer) -> Gen (JoinList b Integer) -> Gen b
---calc (Gen left) (Gen right) = liftM (mappend (tag left) (tag right))
+    testCase "q == 10" $ score 'q' @?= Score 10,
+    testCase "Q == 10" $ score 'q' @?= Score 10,
+    testCase " == 10" $ score ' ' @?= Score 0,
+    testCase "! == 10" $ score '!' @?= Score 0
+  ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b
 calc left right = mappend (tag left) (tag right)
