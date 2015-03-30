@@ -45,8 +45,8 @@ jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
 dropJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
 dropJ _ Empty = Empty
 dropJ n (Single m a)
-  | n <= 0 = Single m a
-  | otherwise = Empty
+      | n <= 0 = Single m a
+      | otherwise = Empty
 dropJ n (Append totalSize j1 j2)
       | (n >= 0) && (n < lowerBound) = 
           let left = dropJ n j1
@@ -59,4 +59,19 @@ dropJ n (Append totalSize j1 j2)
       where lowerBound = getSize $ size $ tag j1
             total = getSize $ size totalSize
 
-
+takeJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+takeJ _ Empty = Empty
+takeJ n (Single m a)
+      | n > 0 = Single m a
+      | otherwise = Empty
+takeJ n (Append s j1 j2)
+      | (n >= 1) && (n < lowerBound) = takeJ n j1
+      | (n >= lowerBound) && (n < total) =
+          let left = j1
+              right = takeJ (n - lowerBound) j2
+              t = mappend (tag left) (tag right) 
+          in Append t left right
+      | n <= 0 = Empty
+      | otherwise = Append s j1 j2
+      where lowerBound = getSize $ size $ tag j1
+            total = getSize $ size s
