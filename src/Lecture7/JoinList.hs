@@ -1,7 +1,9 @@
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 module Lecture7.JoinList where
 
 import           Data.Monoid
+import           Lecture7.Buffer
 import           Lecture7.Scrabble
 import           Lecture7.Sized
 
@@ -19,6 +21,7 @@ tag Empty = mempty
 tag (Single m _) = m
 tag (Append m _ _) = m
 
+bi :: a -> JoinList Size a
 bi = Single (Size 1)
 
 indexJ :: (Sized b, Monoid b) => Int -> JoinList b a -> Maybe a
@@ -79,3 +82,15 @@ takeJ n (Append s j1 j2)
 
 scoreLine :: String -> JoinList Score String
 scoreLine s = Single (scoreString s) s
+
+instance Buffer (JoinList (Score, Size) String) where
+  toString b = concat (jlToList b)
+  fromString s = Single (scoreString s, Size 1) s
+  line = indexJ
+  replaceLine n s b
+    | (n >=0) && (n < numberOfLines) = dropJ n b +++ fromString s +++ takeJ (numberOfLines-n-1) b
+    | otherwise = b
+    where numberOfLines = numLines b
+  numLines b = getSize $ size $ tag b
+  value b = getScore $ fst $ tag b
+
