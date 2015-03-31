@@ -35,7 +35,13 @@ unitTests = testGroup "Lecture 7 Unit tests"
     testCase "q == 10" $ score 'q' @?= Score 10,
     testCase "Q == 10" $ score 'q' @?= Score 10,
     testCase " == 10" $ score ' ' @?= Score 0,
-    testCase "! == 10" $ score '!' @?= Score 0
+    testCase "! == 10" $ score '!' @?= Score 0,
+    
+    testCase "scoreLine" $ 
+             scoreLine "yay " +++ scoreLine "haskell!" @?=
+             Append (Score 23)
+               (Single (Score 9) "yay ")
+               (Single (Score 14) "haskell!")
   ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b

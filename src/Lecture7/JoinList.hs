@@ -2,6 +2,7 @@
 module Lecture7.JoinList where
 
 import           Data.Monoid
+import           Lecture7.Scrabble
 import           Lecture7.Sized
 
 data JoinList m a = Empty
@@ -48,10 +49,10 @@ dropJ n (Single m a)
       | n <= 0 = Single m a
       | otherwise = Empty
 dropJ n (Append totalSize j1 j2)
-      | (n >= 0) && (n < lowerBound) = 
+      | (n >= 0) && (n < lowerBound) =
           let left = dropJ n j1
               right = j2
-              t = mappend (tag left) (tag right) 
+              t = mappend (tag left) (tag right)
           in Append t left right
       | (n >= lowerBound) && (n < total) = dropJ (n-lowerBound) j2
       | n < 0 = Append totalSize j1 j2
@@ -69,9 +70,12 @@ takeJ n (Append s j1 j2)
       | (n >= lowerBound) && (n < total) =
           let left = j1
               right = takeJ (n - lowerBound) j2
-              t = mappend (tag left) (tag right) 
+              t = mappend (tag left) (tag right)
           in Append t left right
       | n <= 0 = Empty
       | otherwise = Append s j1 j2
       where lowerBound = getSize $ size $ tag j1
             total = getSize $ size s
+
+scoreLine :: String -> JoinList Score String
+scoreLine s = Single (scoreString s) s
