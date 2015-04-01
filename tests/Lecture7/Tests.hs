@@ -5,8 +5,9 @@ import           Control.Applicative
 import           Control.Monad
 import           Data.Monoid
 import           Lecture7.JoinList
-import           Lecture7.Sized
 import           Lecture7.Scrabble
+import           Lecture7.Sized
+import           Lecture7.Buffer
 import           Test.QuickCheck
 import           Test.Tasty
 import           Test.Tasty.HUnit
@@ -19,6 +20,13 @@ anAppendedJoinList = Append (mappend (Product 1) (Product 2)) aJoinList aJoinLis
 testData = ((bi 1 +++ bi 2) +++ (bi 3 +++ bi 4)) +++ ((bi 5 +++ bi 6) +++ (bi 7 +++ bi 8))
 
 oddTestData = bi 1 +++ bi 2 +++ bi 3 +++ bi 4 +++ bi 5
+
+bufferTestData :: JoinList (Score, Size) String
+bufferTestData = Single (scoreString "hi", Size 1) "hi" +++
+                 Single (scoreString "there", Size 1) "there"
+
+bufferString :: JoinList (Score, Size) String
+bufferString = fromString "hi\nthere\n"
 
 unitTests :: TestTree
 unitTests = testGroup "Lecture 7 Unit tests"
@@ -36,18 +44,20 @@ unitTests = testGroup "Lecture 7 Unit tests"
     testCase "Q == 10" $ score 'q' @?= Score 10,
     testCase " == 10" $ score ' ' @?= Score 0,
     testCase "! == 10" $ score '!' @?= Score 0,
-    
-    testCase "scoreLine" $ 
+
+    testCase "scoreLine" $
              scoreLine "yay " +++ scoreLine "haskell!" @?=
              Append (Score 23)
                (Single (Score 9) "yay ")
-               (Single (Score 14) "haskell!")
+               (Single (Score 14) "haskell!"),
+
+    testCase "toString" $ toString bufferTestData @?= "hi\nthere\n",
+    testCase "fromString" $ toString bufferString @?= "hi\nthere\n"
   ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b
 calc left right = mappend (tag left) (tag right)
 
---instance (Sized b, Monoid b) => Arbitrary (JoinList b Integer) where
 instance Arbitrary (JoinList Size Integer) where
   arbitrary = sized joinList'
     where joinList' 0 = liftM (Single (Size 1)) arbitrary
@@ -58,7 +68,7 @@ instance Arbitrary (JoinList Size Integer) where
 
 qcProps :: TestTree
 qcProps = testGroup "(checked by QuickCheck)"
-  [ testProperty "indexJ == index" $
+  [ testProperty "indexJ" $
     \i jl -> indexJ (i :: Int) (jl :: JoinList Size Integer) == (jlToList jl !!? i),
 
     testProperty "dropJ" $

@@ -6,6 +6,7 @@ import           Data.Monoid
 import           Lecture7.Buffer
 import           Lecture7.Scrabble
 import           Lecture7.Sized
+import           Lecture7.Editor
 
 data JoinList m a = Empty
                    | Single m a
@@ -84,8 +85,8 @@ scoreLine :: String -> JoinList Score String
 scoreLine s = Single (scoreString s) s
 
 instance Buffer (JoinList (Score, Size) String) where
-  toString b = concat (jlToList b)
-  fromString s = Single (scoreString s, Size 1) s
+  toString b = unlines (jlToList b)
+  fromString s = foldr (\l acc -> Single (scoreString l, Size 1) l +++ acc) Empty $ lines s
   line = indexJ
   replaceLine n s b
     | (n >=0) && (n < numberOfLines) = dropJ n b +++ fromString s +++ takeJ (numberOfLines-n-1) b
@@ -93,4 +94,18 @@ instance Buffer (JoinList (Score, Size) String) where
     where numberOfLines = numLines b
   numLines b = getSize $ size $ tag b
   value b = getScore $ fst $ tag b
+
+initialBuffer :: JoinList (Score, Size) String
+initialBuffer = fromString $ unlines
+                  [ "This buffer is for notes you don't want to save, and for"
+                  , "evaluation of steam valve coefficients."
+                  , "To load a different file, type the character L followed"
+                  , "by the name of the file."
+                  ]
+
+altInitialBuffer :: JoinList (Score, Size) String
+altInitialBuffer = fromString "Hi there !"
+
+run :: IO ()
+run = runEditor editor altInitialBuffer
 
