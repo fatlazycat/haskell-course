@@ -28,6 +28,8 @@ bufferTestData = Single (scoreString "hi", Size 1) "hi" +++
 
 bufferString :: JoinList (Score, Size) String
 bufferString = fromString "hi\nthere\nsomeone\n"
+bufferStringReplaced :: JoinList (Score, Size) String
+bufferStringReplaced = fromString "hi\nreplaced\nsomeone\n"
 
 unitTests :: TestTree
 unitTests = testGroup "Lecture 7 Unit tests"
@@ -54,7 +56,7 @@ unitTests = testGroup "Lecture 7 Unit tests"
 
     testCase "toString" $ toString bufferTestData @?= "hi\nthere\nsomeone\n",
     testCase "fromString" $ toString bufferString @?= "hi\nthere\nsomeone\n"
---    , testCase "replaceLine"
+  , testCase "replaceLine" $ toString (replaceLine 1 "replaced" bufferString) @?= toString (bufferStringReplaced)
   ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b

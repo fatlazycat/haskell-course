@@ -4,9 +4,9 @@ module Lecture7.JoinList where
 
 import           Data.Monoid
 import           Lecture7.Buffer
+import           Lecture7.Editor
 import           Lecture7.Scrabble
 import           Lecture7.Sized
-import           Lecture7.Editor
 
 data JoinList m a = Empty
                    | Single m a
@@ -89,7 +89,7 @@ instance Buffer (JoinList (Score, Size) String) where
   fromString s = foldr (\l acc -> Single (scoreString l, Size 1) l +++ acc) Empty $ lines s
   line = indexJ
   replaceLine n s b
-    | (n >=0) && (n < numberOfLines) = dropJ n b +++ fromString s +++ takeJ (numberOfLines-n-1) b
+    | (n >=0) && (n < numberOfLines) = takeJ n b +++ fromString s +++ dropJ (n+1) b
     | otherwise = b
     where numberOfLines = numLines b
   numLines b = getSize $ size $ tag b
