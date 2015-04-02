@@ -57,6 +57,7 @@ unitTests = testGroup "Lecture 7 Unit tests"
     testCase "toString" $ toString bufferTestData @?= "hi\nthere\nsomeone\n",
     testCase "fromString" $ toString bufferString @?= "hi\nthere\nsomeone\n"
   , testCase "replaceLine" $ toString (replaceLine 1 "replaced" bufferString) @?= toString (bufferStringReplaced)
+  , testCase "number of lines" $ numLines bufferString @?= 3
   ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b
