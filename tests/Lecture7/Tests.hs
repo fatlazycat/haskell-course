@@ -4,10 +4,10 @@ module Lecture7.Tests where
 import           Control.Applicative
 import           Control.Monad
 import           Data.Monoid
+import           Lecture7.Buffer
 import           Lecture7.JoinList
 import           Lecture7.Scrabble
 import           Lecture7.Sized
-import           Lecture7.Buffer
 import           Test.QuickCheck
 import           Test.Tasty
 import           Test.Tasty.HUnit
@@ -23,10 +23,11 @@ oddTestData = bi 1 +++ bi 2 +++ bi 3 +++ bi 4 +++ bi 5
 
 bufferTestData :: JoinList (Score, Size) String
 bufferTestData = Single (scoreString "hi", Size 1) "hi" +++
-                 Single (scoreString "there", Size 1) "there"
+                 Single (scoreString "there", Size 1) "there" +++
+                 Single (scoreString "someone", Size 1) "someone"
 
 bufferString :: JoinList (Score, Size) String
-bufferString = fromString "hi\nthere\n"
+bufferString = fromString "hi\nthere\nsomeone\n"
 
 unitTests :: TestTree
 unitTests = testGroup "Lecture 7 Unit tests"
@@ -51,8 +52,9 @@ unitTests = testGroup "Lecture 7 Unit tests"
                (Single (Score 9) "yay ")
                (Single (Score 14) "haskell!"),
 
-    testCase "toString" $ toString bufferTestData @?= "hi\nthere\n",
-    testCase "fromString" $ toString bufferString @?= "hi\nthere\n"
+    testCase "toString" $ toString bufferTestData @?= "hi\nthere\nsomeone\n",
+    testCase "fromString" $ toString bufferString @?= "hi\nthere\nsomeone\n"
+--    , testCase "replaceLine"
   ]
 
 calc :: (Sized b, Monoid b) => JoinList b a -> JoinList b a -> b
@@ -76,4 +78,8 @@ qcProps = testGroup "(checked by QuickCheck)"
 
     testProperty "takeJ" $
     \n jl -> jlToList (takeJ (n::Int) (jl::JoinList Size Integer)) == take n (jlToList jl)
+
+--    testProperty "buffer instance" $
+--    \s -> (unlines $ lines s) == s ==>
+--      toString (fromString s :: JoinList (Score, Size) String) == s
   ]
