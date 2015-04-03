@@ -30,6 +30,10 @@ bufferString :: JoinList (Score, Size) String
 bufferString = fromString "hi\nthere\nsomeone\n"
 bufferStringReplaced :: JoinList (Score, Size) String
 bufferStringReplaced = fromString "hi\nreplaced\nsomeone\n"
+bufferString2 :: JoinList (Score, Size) String
+bufferString2 = fromString "hi\nthere\nsomeone\nblah\n"
+bufferStringReplaced2 :: JoinList (Score, Size) String
+bufferStringReplaced2 = fromString "hi\nreplaced\nsomeone\nblah\n"
 
 unitTests :: TestTree
 unitTests = testGroup "Lecture 7 Unit tests"
@@ -57,6 +61,7 @@ unitTests = testGroup "Lecture 7 Unit tests"
   , testCase "toString" $ toString bufferTestData @?= "hi\nthere\nsomeone\n"
   , testCase "fromString" $ toString bufferString @?= "hi\nthere\nsomeone\n"
   , testCase "replaceLine" $ toString (replaceLine 1 "replaced" bufferString) @?= toString (bufferStringReplaced)
+  , testCase "replaceLine" $ toString (replaceLine 1 "replaced" bufferString2) @?= toString (bufferStringReplaced2)
   , testCase "number of lines" $ numLines bufferString @?= 3
   , testCase "value" $ value bufferString @?= 22
   ]
@@ -84,6 +89,7 @@ qcProps = testGroup "(checked by QuickCheck)"
     \n jl -> jlToList (takeJ (n::Int) (jl::JoinList Size Integer)) == take n (jlToList jl)
 
 --    testProperty "buffer instance" $
---    \s -> (unlines $ lines s) == s ==>
+
+      --    \s -> (unlines $ lines s) == s ==>
 --      toString (fromString s :: JoinList (Score, Size) String) == s
   ]

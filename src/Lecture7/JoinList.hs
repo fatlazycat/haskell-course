@@ -103,9 +103,7 @@ initialBuffer = fromString $ unlines
                   , "by the name of the file."
                   ]
 
-altInitialBuffer :: JoinList (Score, Size) String
-altInitialBuffer = fromString "Hi there !"
-
 run :: IO ()
-run = runEditor editor altInitialBuffer
+run = runEditor editor initialBuffer
 
+-- something up with the editor but the tests pass
