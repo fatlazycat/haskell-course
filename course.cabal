@@ -46,6 +46,7 @@ library
                  , Lecture7.StringBufEditor
                  , Lecture7.StringBuffer
                  , Lecture7.Editor
+                 , Lecture8.Party
 
 test-suite test
   default-language: Haskell2010
