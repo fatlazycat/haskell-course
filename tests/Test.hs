@@ -29,8 +29,8 @@ tests = testGroup "Lecture Tests"
        , Lecture6.Tests.unitTests
        , Lecture7.Tests.unitTests
        , Lecture7.StringBufTests.unitTests
-       , Lecture8.Tests.unitTests
        , properties
+       , Lecture8.Tests.unitTests
         ]
 
 properties :: TestTree

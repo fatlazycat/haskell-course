@@ -14,6 +14,7 @@ unitTests = testGroup "Lecture 8 Unit tests"
   , testCase "Add one to an existing guest list" $ glCons emp1 (GL [emp2] 2) @?= GL [emp1, emp2] 3
 
   , testCase "Use of guest list monoid" $ (mappend gl1 gl2) @?= GL [emp1, emp2] 3
+  , testCase "moreFun" $ moreFun gl1 gl2 @?= gl2
   ]
 
 emp1 = Emp "Emp1" 1
