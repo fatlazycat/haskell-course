@@ -19,9 +19,3 @@ moreFun gl1@(GL _ x) gl2@(GL _ y)
 
 treeFold :: (a -> [b] -> b) -> Tree a -> b
 treeFold fn (Node label xs) = fn label (map (treeFold fn) xs)
-
--- treeFold :: Monoid b => (b -> a -> b) -> b -> Tree a -> b
--- treeFold fn start (Node l []) = fn start l
--- treeFold fn start (Node l forest) = mappend (fn start l) sub
---   where sub = mconcat $ map (treeFold fn mempty) forest
-
