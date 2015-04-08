@@ -15,9 +15,12 @@ unitTests = testGroup "Lecture 8 Unit tests"
 
   , testCase "Use of guest list monoid" $ (mappend gl1 gl2) @?= GL [emp1, emp2] 3
   , testCase "moreFun" $ moreFun gl1 gl2 @?= gl2
+  , testCase "calced fun" $ treeFold fnAddFun testCompany @?= 46
   ]
 
 emp1 = Emp "Emp1" 1
 emp2 = Emp "Emp2" 2
 gl1 = GL [emp1] 1
 gl2 = GL [emp2] 2
+
+fnAddFun emp results = sum (empFun emp : results)
