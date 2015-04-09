@@ -1,3 +1,4 @@
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Lecture8.Party where
 
@@ -19,3 +20,16 @@ moreFun gl1@(GL _ x) gl2@(GL _ y)
 
 treeFold :: (a -> [b] -> b) -> Tree a -> b
 treeFold fn (Node label xs) = fn label (map (treeFold fn) xs)
+
+nextLevel :: Employee -> [(GuestList, GuestList)] -> (GuestList, GuestList)
+nextLevel e gls = (with, without)
+  where with = foldl (\acc (_, wo) -> mappend acc wo) zeroWith gls
+        without = foldl (\acc (wi, _) -> mappend wi acc) zeroWithout gls
+        zeroWith = GL [e] (empFun e)
+        zeroWithout = GL [] 0
+
+maxFun :: Tree Employee -> GuestList
+maxFun t = moreFun with without
+  where maxWithAndWithout = treeFold nextLevel t
+        with = fst maxWithAndWithout
+        without = snd maxWithAndWithout

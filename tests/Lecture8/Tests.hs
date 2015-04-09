@@ -16,6 +16,9 @@ unitTests = testGroup "Lecture 8 Unit tests"
   , testCase "Use of guest list monoid" $ (mappend gl1 gl2) @?= GL [emp1, emp2] 3
   , testCase "moreFun" $ moreFun gl1 gl2 @?= gl2
   , testCase "calced fun" $ treeFold fnAddFun testCompany @?= 46
+
+  , testCase "maxFun" $ maxFun testCompany @?= GL [Emp {empName = "Sarah", empFun = 17},Emp {empName = "Bob", empFun = 2},Emp {empName = "Sue", empFun = 5},Emp {empName = "John", empFun = 1}] 25
+  , testCase "maxFun" $ maxFun testCompany2 @?= GL [Emp {empName = "Sarah", empFun = 17},Emp {empName = "Bob", empFun = 3},Emp {empName = "Sue", empFun = 5},Emp {empName = "John", empFun = 1}] 26
   ]
 
 emp1 = Emp "Emp1" 1
