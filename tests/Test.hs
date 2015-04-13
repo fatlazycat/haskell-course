@@ -9,6 +9,7 @@ import           Lecture6.Tests
 import           Lecture7.Tests
 import           Lecture7.StringBufTests
 import           Lecture8.Tests
+import           Lecture10.Tests
 import           Test.Tasty
 import           Test.Tasty.Ingredients.Rerun
 import           Test.Tasty.Runners
@@ -31,6 +32,7 @@ tests = testGroup "Lecture Tests"
        , Lecture7.StringBufTests.unitTests
        , properties
        , Lecture8.Tests.unitTests
+       , Lecture10.Tests.unitTests
         ]
 
 properties :: TestTree
