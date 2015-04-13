@@ -1,7 +1,9 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 module Lecture8.Tests where
 
+import           Data.List
 import           Data.Monoid
+import           Data.Tree
 import           Lecture8.Employee
 import           Lecture8.Party
 import           Test.Tasty
@@ -27,3 +29,19 @@ gl1 = GL [emp1] 1
 gl2 = GL [emp2] 2
 
 fnAddFun emp results = sum (empFun emp : results)
+
+parseTree :: String -> Tree Employee
+parseTree = read
+
+printGuestList :: GuestList -> IO ()
+printGuestList (GL xs fun) = do
+                             putStrLn $ "Max fun = " ++ show fun
+                             putStr gl
+                             putStrLn "----"
+                             where sortedLines = sort $ map empName xs
+                                   gl = unlines sortedLines
+
+processFile = do
+              contents <- readFile "tests/Lecture8/company.txt"
+              let gl = maxFun $ parseTree contents
+              printGuestList gl
