@@ -4,7 +4,7 @@
 
 module Lecture10.AParser where
 
-import           Control.Applicative
+import           Control.Applicative()
 import           Data.Char
 
 -- A parser for a value of type a is a function which takes a String

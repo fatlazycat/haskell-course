@@ -1,7 +1,7 @@
 module Lecture8.Employee where
 
+import           Data.Monoid
 import           Data.Tree
-import Data.Monoid
 
 -- Employee names are represented by Strings.
 type Name = String
