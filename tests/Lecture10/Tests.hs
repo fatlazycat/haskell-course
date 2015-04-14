@@ -13,6 +13,8 @@ unitTests = testGroup "Lecture 10 Unit tests"
   , testCase "applicative" $ runParser (TwoChar <$> parserA <*> parserB) "AB" @?= Just((TwoChar 'A' 'B'), [])
   , testCase "applicative abParser" $ runParser abParser "AB" @?= Just(('A','B'), [])
   , testCase "applicative abParser fail" $ runParser abParser "CB" @?= Nothing
+  , testCase "applicative abParser_" $ runParser abParser_ "AB" @?= Just((), [])
+  , testCase "applicative abParser_ fail" $ runParser abParser_ "CB" @?= Nothing
   ]
 
 isA x = 'A' == x
