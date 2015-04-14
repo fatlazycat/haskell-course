@@ -77,3 +77,5 @@ first fn (a,c) = (fn a,c)
 second :: (b -> c) -> (a,b) -> (a,c)
 second fn (a,c) = (a,fn c)
 
+abParser :: Parser (Char, Char)
+abParser = (\x y -> (x,y)) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
