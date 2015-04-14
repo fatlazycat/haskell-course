@@ -82,3 +82,6 @@ abParser = (\x y -> (x,y)) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
 
 abParser_ :: Parser ()
 abParser_ = (\_ _ -> ()) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
+
+abParser2_ :: Parser ()
+abParser2_ = (\_ -> ()) <$> abParser

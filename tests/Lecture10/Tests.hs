@@ -15,6 +15,8 @@ unitTests = testGroup "Lecture 10 Unit tests"
   , testCase "applicative abParser fail" $ runParser abParser "CB" @?= Nothing
   , testCase "applicative abParser_" $ runParser abParser_ "AB" @?= Just((), [])
   , testCase "applicative abParser_ fail" $ runParser abParser_ "CB" @?= Nothing
+  , testCase "applicative abParser2_" $ runParser abParser2_ "AB" @?= Just((), [])
+  , testCase "applicative abParser2_ fail" $ runParser abParser2_ "CB" @?= Nothing
   ]
 
 isA x = 'A' == x
