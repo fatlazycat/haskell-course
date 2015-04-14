@@ -4,7 +4,7 @@
 
 module Lecture10.AParser where
 
-import           Control.Applicative()
+import           Control.Applicative
 import           Data.Char
 
 -- A parser for a value of type a is a function which takes a String
@@ -56,3 +56,24 @@ posInt = Parser f
 ------------------------------------------------------------
 -- Your code goes below here
 ------------------------------------------------------------
+
+instance Functor Parser where
+  fmap f (Parser g) = Parser $ fmap (first f) . g
+
+instance Applicative Parser where
+  -- pure :: a -> f a
+  pure a = Parser $ \xs -> Just(a, xs)
+  -- (<*>) :: f (a -> b) -> f a -> f b
+  (<*>) (Parser p1) (Parser p2) =
+    Parser $ \xs -> case (p1 xs) of
+                     Nothing -> Nothing
+                     Just(a,b) -> case (p2 b) of
+                                   Nothing -> Nothing
+                                   Just(c,d) -> Just(a c, d)
+
+first :: (a -> b) -> (a,c) -> (b,c)
+first fn (a,c) = (fn a,c)
+
+second :: (b -> c) -> (a,b) -> (a,c)
+second fn (a,c) = (a,fn c)
+
