@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 module Lecture10.Tests where
 
 import           Control.Applicative
@@ -20,4 +21,4 @@ parserB = satisfy isB
 
 data TwoChar = TwoChar Char Char
   deriving(Show, Eq)
-          
+
