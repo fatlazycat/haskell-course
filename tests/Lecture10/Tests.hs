@@ -22,6 +22,9 @@ unitTests = testGroup "Lecture 10 Unit tests"
   , testCase "a or b with b" $ runParser (id <$> char 'A' <|> char 'B') "BC" @?= Just('B', "C")
   , testCase "a or b with a" $ runParser (id <$> char 'A' <|> char 'B') "AC" @?= Just('A', "C")
   , testCase "a or b with neither" $ runParser (id <$> char 'A' <|> char 'B') "CC" @?= Nothing
+  , testCase "intOrUppercase 342abcd" $ runParser intOrUppercase "342abcd" @?= Just((), "abcd")
+  , testCase "intOrUppercase XYZ" $ runParser intOrUppercase "XYZ" @?= Just((), "YZ")
+  , testCase "intOrUppercase foo" $ runParser intOrUppercase "foo" @?= Nothing
   ]
 
 isA x = 'A' == x
