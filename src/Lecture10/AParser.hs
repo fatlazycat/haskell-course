@@ -86,6 +86,5 @@ abParser_ = (\_ _ -> ()) <$> char 'A' <*> char 'B'
 abParser2_ :: Parser ()
 abParser2_ = (\_ -> ()) <$> abParser
 
--- changed from using a satisfy for space to char ' '
 intPair :: Parser ([Integer])
 intPair = (\x _ y -> x : y : []) <$> posInt <*> char ' ' <*> posInt
