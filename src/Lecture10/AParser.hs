@@ -78,16 +78,14 @@ second :: (b -> c) -> (a,b) -> (a,c)
 second fn (a,c) = (a,fn c)
 
 abParser :: Parser (Char, Char)
-abParser = (\x y -> (x,y)) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
+abParser = (\x y -> (x,y)) <$> char 'A' <*> char 'B'
 
 abParser_ :: Parser ()
-abParser_ = (\_ _ -> ()) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
+abParser_ = (\_ _ -> ()) <$> char 'A' <*> char 'B'
 
 abParser2_ :: Parser ()
 abParser2_ = (\_ -> ()) <$> abParser
 
-spaceParser = (satisfy (==' '))
-spaceParser_ = (\_ -> ()) <$> spaceParser
-
+-- changed from using a satisfy for space to char ' '
 intPair :: Parser ([Integer])
-intPair = (\x _ y -> x : y : []) <$> posInt <*> spaceParser_ <*> posInt
+intPair = (\x _ y -> x : y : []) <$> posInt <*> char ' ' <*> posInt
