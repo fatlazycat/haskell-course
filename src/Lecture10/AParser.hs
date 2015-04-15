@@ -85,3 +85,9 @@ abParser_ = (\_ _ -> ()) <$> (satisfy (=='A')) <*> (satisfy (=='B'))
 
 abParser2_ :: Parser ()
 abParser2_ = (\_ -> ()) <$> abParser
+
+spaceParser = (satisfy (==' '))
+spaceParser_ = (\_ -> ()) <$> spaceParser
+
+intPair :: Parser ([Integer])
+intPair = (\x _ y -> x : y : []) <$> posInt <*> spaceParser_ <*> posInt
