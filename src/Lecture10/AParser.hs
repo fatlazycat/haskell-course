@@ -87,4 +87,4 @@ abParser2_ :: Parser ()
 abParser2_ = (\_ -> ()) <$> abParser
 
 intPair :: Parser ([Integer])
-intPair = (\x _ y -> x : y : []) <$> posInt <*> char ' ' <*> posInt
+intPair = (\x _ y -> [x,y]) <$> posInt <*> char ' ' <*> posInt
