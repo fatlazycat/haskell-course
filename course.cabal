@@ -49,6 +49,8 @@ library
                  , Lecture8.Party
                  , Lecture8.Employee
                  , Lecture10.AParser
+                 , Lecture11.AParser
+                 , Lecture11.SExpr
 
 test-suite test
   default-language: Haskell2010
