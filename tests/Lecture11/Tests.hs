@@ -12,6 +12,8 @@ unitTests :: TestTree
 unitTests = testGroup "Lecture 11 Unit tests"
   [
     testCase "zeroOrMore multiple" $ runParser (zeroOrMore (satisfy isUpper)) "ABCdEfgH" @?= Just("ABC","dEfgH")
-  , testCase "zeroOrMore multiple" $ runParser (oneOrMore (satisfy isUpper)) "ABCdEfgH" @?= Just("ABC","dEfgH")
+  , testCase "oneOrMore multiple" $ runParser (oneOrMore (satisfy isUpper)) "ABCdEfgH" @?= Just("ABC","dEfgH")
+  , testCase "zeroOrMore multiple" $ runParser (zeroOrMore (satisfy isUpper)) "abcdeFGh" @?= Just("","abcdeFGh")
+  , testCase "oneOrMore multiple" $ runParser (zeroOrMore (satisfy isUpper)) "abcdeFGh" @?= Nothing
   ]
 
