@@ -5,6 +5,7 @@
 module Lecture11.SExpr where
 
 import           Control.Applicative
+import           Data.Char
 import           Lecture11.AParser
 
 ------------------------------------------------------------
@@ -22,7 +23,7 @@ oneOrMore p = (:) <$> p <*> zeroOrMore p
 ------------------------------------------------------------
 
 spaces :: Parser String
-spaces = undefined
+spaces = zeroOrMore (satisfy isSpace)
 
 ident :: Parser String
 ident = undefined
