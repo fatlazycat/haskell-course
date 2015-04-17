@@ -16,6 +16,8 @@ unitTests = testGroup "Lecture 11 Unit tests"
   , testCase "zeroOrMore multiple" $ runParser (zeroOrMore (satisfy isUpper)) "abcdeFGh" @?= Just("","abcdeFGh")
   , testCase "oneOrMore multiple" $ runParser (oneOrMore (satisfy isUpper)) "abcdeFGh" @?= Nothing
 
-  , testCase "sapces" $ runParser spaces "abcdeFGh" @?= Just("", "abcdeFGh")
+  , testCase "sapces fail" $ runParser spaces "abcdeFGh" @?= Just("", "abcdeFGh")
+  , testCase "sapces multiple" $ runParser spaces "    abcdeFGh" @?= Just("    ", "abcdeFGh")
+  , testCase "sapces one" $ runParser spaces " abcdeFGh" @?= Just(" ", "abcdeFGh")
   ]
 
