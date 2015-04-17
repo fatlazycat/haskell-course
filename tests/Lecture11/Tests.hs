@@ -19,5 +19,9 @@ unitTests = testGroup "Lecture 11 Unit tests"
   , testCase "sapces fail" $ runParser spaces "abcdeFGh" @?= Just("", "abcdeFGh")
   , testCase "sapces multiple" $ runParser spaces "    abcdeFGh" @?= Just("    ", "abcdeFGh")
   , testCase "sapces one" $ runParser spaces " abcdeFGh" @?= Just(" ", "abcdeFGh")
-  ]
 
+  , testCase "foobar baz" $ runParser ident "foobar baz" @?= Just ("foobar"," baz")
+  , testCase "foo33fa" $ runParser ident "foo33fA" @?= Just ("foo33fA","")
+  , testCase "2bad" $ runParser ident "2bad" @?= Nothing
+  , testCase "" $ runParser ident "" @?= Nothing
+  ]
