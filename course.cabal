@@ -27,6 +27,7 @@ library
   build-depends: base >= 4 && < 5
                , containers >= 0.5.5.1
                , mtl
+               , MonadRandom
   hs-source-dirs: src
   default-language: Haskell2010
   exposed-modules: Lecture1.Lecture1
@@ -51,6 +52,7 @@ library
                  , Lecture10.AParser
                  , Lecture11.AParser
                  , Lecture11.SExpr
+                 , Lecture12.Risk
 
 test-suite test
   default-language: Haskell2010
