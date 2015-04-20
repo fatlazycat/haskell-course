@@ -16,9 +16,9 @@ unitTests = testGroup "Lecture 11 Unit tests"
   , testCase "zeroOrMore multiple" $ runParser (zeroOrMore (satisfy isUpper)) "abcdeFGh" @?= Just("","abcdeFGh")
   , testCase "oneOrMore multiple" $ runParser (oneOrMore (satisfy isUpper)) "abcdeFGh" @?= Nothing
 
-  , testCase "sapces fail" $ runParser spaces "abcdeFGh" @?= Just("", "abcdeFGh")
-  , testCase "sapces multiple" $ runParser spaces "    abcdeFGh" @?= Just("    ", "abcdeFGh")
-  , testCase "sapces one" $ runParser spaces " abcdeFGh" @?= Just(" ", "abcdeFGh")
+  , testCase "spaces fail" $ runParser spaces "abcdeFGh" @?= Just("", "abcdeFGh")
+  , testCase "spaces multiple" $ runParser spaces "    abcdeFGh" @?= Just("    ", "abcdeFGh")
+  , testCase "spaces one" $ runParser spaces " abcdeFGh" @?= Just(" ", "abcdeFGh")
 
   , testCase "foobar baz" $ runParser ident "foobar baz" @?= Just("foobar"," baz")
   , testCase "foo33fa" $ runParser ident "foo33fA" @?= Just("foo33fA","")
@@ -27,4 +27,7 @@ unitTests = testGroup "Lecture 11 Unit tests"
 
   , testCase "5" $ runParser parseSExpr "5" @?= Just(A (N 5), "")
   , testCase "foo3" $ runParser parseSExpr "foo3" @?= Just(A (I "foo3"), "")
+  , testCase "(bar (foo) 3 5 874)" $ runParser parseSExpr "(bar (foo) 3 5 874)" @?=
+      Just(Comb [(A(I "bar")), Comb [(A(I "foo"))], (A(N 3)), (A(N 5)), (A(N 874))], "")
+
   ]
