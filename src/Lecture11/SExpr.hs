@@ -39,13 +39,24 @@ type Ident = String
 
 -- An "atom" is either an integer value or an identifier.
 data Atom = N Integer | I Ident
-  deriving Show
+  deriving (Show, Eq)
 
 -- An S-expression is either an atom, or a list of S-expressions.
 data SExpr = A Atom
            | Comb [SExpr]
-  deriving Show
+  deriving (Show, Eq)
 
-sequenceA :: (Applicative f) => [f a] -> f [a]
-sequenceA [] = pure []
-sequenceA (x:xs) = (:) <$> x <*> sequenceA xs
+parseInteger :: Parser Atom
+parseInteger = spaces *> (N <$> posInt) <* spaces
+
+parseIdent :: Parser Atom
+parseIdent = spaces *> (I <$> ident) <* spaces
+
+parseAtom :: Parser Atom
+parseAtom = parseInteger <|> parseIdent
+
+parseComb :: Parser SExpr
+parseComb = spaces *> (Comb <$> (oneOrMore parseSExpr)) <* spaces
+
+parseSExpr :: Parser SExpr
+parseSExpr = (A <$> parseAtom) <|> (spaces *> char '(' *> parseComb <* char ')' <* spaces)
