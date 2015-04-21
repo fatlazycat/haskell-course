@@ -37,11 +37,11 @@ data Battlefield = Battlefield { attackers :: Army, defenders :: Army }
 encounter :: DieValue -> DieValue -> Char
 encounter a d = if a > d then 'a' else 'd'
 
--- battle :: Battlefield -> Rand StdGen Battlefield
--- battle b = do
---   attackersDie <- dice (attackers b)
---   defendersDie <- dice (defenders b)
---   return (Battlefield 1 1)
+battle :: Battlefield -> Rand StdGen Battlefield
+battle b = do
+  attackersDie <- dice (attackers b)
+  defendersDie <- dice (defenders b)
+  return $ processBattle attackersDie defendersDie
 
 processBattle :: [DieValue] -> [DieValue] -> Battlefield
 processBattle unsortedAttackers unsortedDefenders =
