@@ -1,4 +1,5 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 module Lecture12.Risk where
 
@@ -89,8 +90,8 @@ attackerWins :: Battlefield -> Bool
 attackerWins (Battlefield a d) = a > d
 
 calcPercentage :: [Battlefield] -> Int -> Double
-calcPercentage bs n = (fromIntegral sum) / (fromIntegral n)
-  where sum = Prelude.foldl (\acc b -> if (attackerWins b) then (acc + 1) else acc ) 0 bs
+calcPercentage bs n = (fromIntegral totalWins) / (fromIntegral n)
+  where totalWins = Prelude.foldl (\(acc :: Integer) b -> if (attackerWins b) then (acc + 1) else acc ) 0 bs
 
 multipleRuns :: Int -> Battlefield -> Rand StdGen [Battlefield]
 multipleRuns n b = replicateM n (battle b)
