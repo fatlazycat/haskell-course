@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 module Lecture12.Tests where
 
+import           Control.Monad.Random
 import           Lecture12.Risk
 import           Test.Tasty
 import           Test.Tasty.HUnit
@@ -13,4 +14,7 @@ unitTests = testGroup "Lecture 12 Unit tests"
   , testCase "b wins" $ encounter 1 2 @?= 'd'
 
   , testCase "processBattle" $ processBattle [DV 1, DV 3, DV 1] [DV 1, DV 1] @?= Battlefield 2 1
+
+  , testCase "test battle" $ fst (runRand (battle (Battlefield 3 2)) (mkStdGen 2)) @?= Battlefield 2 1
+
   ]

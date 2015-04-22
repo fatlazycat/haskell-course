@@ -5,7 +5,7 @@ module Lecture12.Risk where
 import           Control.Monad
 import           Control.Monad.Random
 import           Data.List
-import Data.Map
+import           Data.Map
 
 ------------------------------------------------------------
 -- Die values
@@ -55,4 +55,33 @@ frequency :: (Ord a) => [a] -> Map a Int
 frequency xs = fromListWith (+) [(x, 1) | x <- xs]
 
 updatedCount :: [DieValue] -> Map Char Int -> Char -> Int
-updatedCount rolls m t = (length rolls) - (m ! t)
+updatedCount rolls m t = (length rolls) - (findWithDefault 0 t m)
+
+invade :: Battlefield -> Rand StdGen Battlefield
+invade b@(Battlefield a d) 
+  | a < 2 = return b
+  | d == 0 = return b
+  | otherwise = do
+      resultOfBattle <- battle (Battlefield (maxAttackers a) (maxDefenders d))
+      let ra = attackers resultOfBattle
+      let rd = defenders resultOfBattle
+      invade (Battlefield (a-ra) (d-rd))
+
+maxAttackers :: Int -> Int
+maxAttackers n
+  | n == 0 = 0
+  | n == 1 = 0
+  | n == 2 = 1
+  | otherwise = 2
+
+maxDefenders :: Int -> Int
+maxDefenders n
+  | n == 0 = 0
+  | n == 1 = 1
+  | otherwise = 2
+
+
+main :: IO()
+main = do
+  result <- evalRandIO $ invade (Battlefield 113 20)
+  putStrLn $ "Result is " ++ show result
