@@ -58,7 +58,7 @@ updatedCount :: [DieValue] -> Map Char Int -> Char -> Int
 updatedCount rolls m t = (length rolls) - (findWithDefault 0 t m)
 
 invade :: Battlefield -> Rand StdGen Battlefield
-invade b@(Battlefield a d) 
+invade b@(Battlefield a d)
   | a < 2 = return b
   | d == 0 = return b
   | otherwise = do
@@ -80,8 +80,22 @@ maxDefenders n
   | n == 1 = 1
   | otherwise = 2
 
+successProb :: Battlefield -> Rand StdGen Double
+successProb b = do
+  results <- multipleRuns 1000 b
+  return (calcPercentage results 1000)
+
+attackerWins :: Battlefield -> Bool
+attackerWins (Battlefield a d) = a > d
+
+calcPercentage :: [Battlefield] -> Int -> Double
+calcPercentage bs n = (fromIntegral sum) / (fromIntegral n)
+  where sum = Prelude.foldl (\acc b -> if (attackerWins b) then (acc + 1) else acc ) 0 bs
+
+multipleRuns :: Int -> Battlefield -> Rand StdGen [Battlefield]
+multipleRuns n b = replicateM n (battle b)
 
 main :: IO()
 main = do
-  result <- evalRandIO $ invade (Battlefield 113 20)
+  result <- evalRandIO $ invade (Battlefield 113 2)
   putStrLn $ "Result is " ++ show result

@@ -19,4 +19,6 @@ unitTests = testGroup "Lecture 12 Unit tests"
 
   , testCase "test invade" $ fst (runRand (invade (Battlefield 93 24)) (mkStdGen 2)) @?= Battlefield 53 0
 
+  , testCase "test successProb" $ fst (runRand (successProb (Battlefield 30 30)) (mkStdGen 2)) @?= 0.872
+
   ]
