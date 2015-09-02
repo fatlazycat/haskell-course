@@ -2,7 +2,7 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Lecture8.Party where
 
-import           Data.Monoid
+import           Data.Monoid()
 import           Data.Tree
 import           Lecture8.Employee
 
